@@ -1,0 +1,9 @@
+name,category,price_range,cuisine,highlights,details,hours
+"Curry 36",street_food,"€3-5",german,"Currywurst, Fries, Local favorite","Famous currywurst stand with multiple locations","Daily 9:00-5:00"
+"Mustafa's Gemüse Kebap",street_food,"€4-6",turkish,"Vegetarian kebap, Fresh vegetables, Long queues","Popular Turkish street food in Kreuzberg","Daily 10:00-2:00"
+"Markthalle Neun",market,"€5-15",international,"Food market, Local vendors, Street food","Historic market hall with food vendors","Thu-Fri 12:00-18:00, Sat 10:00-18:00"
+"Katz Orange",restaurant,"€20-40",german,"Modern German cuisine, Craft cocktails, Historic setting","Upscale restaurant in a historic brewery","Tue-Sat 18:00-23:00"
+"Lokal",restaurant,"€15-30",german,"Local ingredients, Seasonal menu, Cozy atmosphere","Modern German bistro in Mitte","Daily 12:00-23:00"
+"Konnopke's Imbiss",street_food,"€3-5",german,"Traditional currywurst, Historic stand, Local favorite","Oldest currywurst stand in Berlin","Mon-Fri 11:00-20:00, Sat 11:00-16:00"
+"Cafe am Neuen See",cafe,"€10-20",german,"Lakeside dining, Beer garden, Traditional food","Beautiful lakeside cafe in Tiergarten","Daily 10:00-22:00"
+"Katz Orange",restaurant,"€20-40",german,"Modern German cuisine, Craft cocktails, Historic setting","Upscale restaurant in a historic brewery","Tue-Sat 18:00-23:00" 

@@ -133,16 +133,46 @@ function calculateBudget() {
         return;
     }
     
-    const museumPackage = parseFloat(museumPackageElement.value) || 0;
-    const foodBudget = parseFloat(foodBudgetElement.value) || 15;
-    const transport = parseFloat(transportElement.value) || 8.80;
+    // Oblicz koszt ulubionych muzeów
+    let museumTotal = 0;
+    const favoriteMuseums = Array.from(favoritesManager.favorites || [])
+        .filter(id => typeof id === 'string' && id.startsWith('museum_'))
+        .map(id => {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            if (!card) return 0;
+            const price = card.dataset.price;
+            return price === 'Free Permanent' ? 0 : parseFloat(price) || 0;
+        });
+    
+    if (favoriteMuseums.length > 0) {
+        museumTotal = favoriteMuseums.reduce((sum, price) => sum + price, 0);
+    } else {
+        museumTotal = parseFloat(museumPackageElement.value) || 0;
+    }
+    
+    // Oblicz koszt ulubionych restauracji
+    let foodTotal = 0;
+    const favoriteRestaurants = Array.from(favoritesManager.favorites || [])
+        .filter(id => typeof id === 'string' && id.startsWith('restaurant_'))
+        .map(id => {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            return card ? parseFloat(card.dataset.price) || 0 : 0;
+        });
+    
     const days = parseFloat(daysElement.value) || 1.5;
     
-    // Calculate totals
-    const museumTotal = museumPackage;
-    const foodTotal = foodBudget * days;
+    if (favoriteRestaurants.length > 0) {
+        // Średni koszt posiłku z ulubionych restauracji
+        const avgMealCost = favoriteRestaurants.reduce((sum, price) => sum + price, 0) / favoriteRestaurants.length;
+        // Zakładamy 3 posiłki dziennie
+        foodTotal = avgMealCost * 3 * days;
+    } else {
+        const foodBudget = parseFloat(foodBudgetElement.value) || 15;
+        foodTotal = foodBudget * days;
+    }
     
     // Handle transportation calculation
+    const transport = parseFloat(transportElement.value) || 8.80;
     let transportTotal;
     if (transport === 16) { // Weekend ticket
         transportTotal = 16;
@@ -298,66 +328,273 @@ function performSearch(event) {
     });
 }
 
-// Favorites functionality (using in-memory storage)
+// Favorites functionality (using cookies)
 class FavoritesManager {
     constructor() {
         this.favorites = new Set();
+        this.favoritesOrder = [];
+        this.cookieName = 'berlin_favorites';
+        this.orderCookieName = 'berlin_favorites_order';
         this.init();
     }
     
     init() {
-        this.addFavoriteButtons();
+        try {
+            this.loadFavorites();
+            this.loadFavoritesOrder();
+            this.addFavoriteButtons();
+            this.initializeDragAndDrop();
+            this.updateFavoritesGrid();
+        } catch (error) {
+            console.error('Błąd podczas inicjalizacji FavoritesManager:', error);
+        }
+    }
+    
+    loadFavorites() {
+        try {
+            const cookies = document.cookie.split(';');
+            const favoritesCookie = cookies.find(cookie => cookie.trim().startsWith(this.cookieName + '='));
+            
+            if (favoritesCookie) {
+                const favoritesData = JSON.parse(decodeURIComponent(favoritesCookie.split('=')[1]));
+                this.favorites = new Set(favoritesData);
+            }
+        } catch (e) {
+            console.error('Błąd podczas wczytywania ulubionych:', e);
+            this.favorites = new Set();
+        }
+    }
+
+    loadFavoritesOrder() {
+        try {
+            const cookies = document.cookie.split(';');
+            const orderCookie = cookies.find(cookie => cookie.trim().startsWith(this.orderCookieName + '='));
+            
+            if (orderCookie) {
+                this.favoritesOrder = JSON.parse(decodeURIComponent(orderCookie.split('=')[1]));
+            } else {
+                this.favoritesOrder = Array.from(this.favorites);
+            }
+        } catch (e) {
+            console.error('Błąd podczas wczytywania kolejności:', e);
+            this.favoritesOrder = Array.from(this.favorites);
+        }
+    }
+    
+    saveFavorites() {
+        try {
+            const favoritesData = JSON.stringify(Array.from(this.favorites));
+            const expirationDate = new Date();
+            expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+            
+            document.cookie = `${this.cookieName}=${encodeURIComponent(favoritesData)}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Lax`;
+        } catch (e) {
+            console.error('Błąd podczas zapisywania ulubionych:', e);
+        }
+    }
+
+    saveFavoritesOrder() {
+        try {
+            const orderData = JSON.stringify(this.favoritesOrder);
+            const expirationDate = new Date();
+            expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+            
+            document.cookie = `${this.orderCookieName}=${encodeURIComponent(orderData)}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Lax`;
+        } catch (e) {
+            console.error('Błąd podczas zapisywania kolejności:', e);
+        }
     }
     
     addFavoriteButtons() {
-        const cards = document.querySelectorAll('.museum-card .card, .attraction-card .card, .restaurant-card .card');
-        
-        cards.forEach((card, index) => {
-            const favoriteButton = document.createElement('button');
-            favoriteButton.className = 'favorite-btn';
-            favoriteButton.innerHTML = '♡';
-            favoriteButton.setAttribute('aria-label', 'Add to favorites');
-            favoriteButton.style.cssText = `
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                background: var(--color-surface);
-                border: 1px solid var(--color-border);
-                border-radius: 50%;
-                width: 32px;
-                height: 32px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                font-size: 16px;
-                transition: all 0.2s ease;
-                z-index: 10;
-            `;
+        try {
+            const cards = document.querySelectorAll('.museum-card, .attraction-card, .restaurant-card');
             
-            // Make card container relative
-            card.style.position = 'relative';
-            
-            favoriteButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.toggleFavorite(favoriteButton, index);
+            cards.forEach(card => {
+                // Sprawdź, czy przycisk już istnieje
+                if (card.querySelector('.favorite-btn')) return;
+
+                const favoriteButton = document.createElement('button');
+                favoriteButton.className = 'favorite-btn';
+                const itemId = card.dataset.id;
+                favoriteButton.innerHTML = this.favorites.has(itemId) ? '♥' : '♡';
+                favoriteButton.setAttribute('aria-label', this.favorites.has(itemId) ? 'Usuń z ulubionych' : 'Dodaj do ulubionych');
+                favoriteButton.style.cssText = `
+                    position: absolute;
+                    top: 12px;
+                    right: 12px;
+                    background: var(--color-surface);
+                    border: 1px solid var(--color-border);
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    font-size: 16px;
+                    transition: all 0.2s ease;
+                    z-index: 10;
+                    color: ${this.favorites.has(itemId) ? 'var(--color-error)' : 'var(--color-text-secondary)'};
+                `;
+                
+                card.style.position = 'relative';
+                
+                favoriteButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleFavorite(favoriteButton, itemId);
+                });
+                
+                card.appendChild(favoriteButton);
             });
+        } catch (e) {
+            console.error('Błąd podczas dodawania przycisków ulubionych:', e);
+        }
+    }
+
+    updateFavoritesGrid() {
+        try {
+            const favoritesGrid = document.getElementById('favorites-grid');
+            if (!favoritesGrid) return;
+
+            favoritesGrid.innerHTML = '';
             
-            card.appendChild(favoriteButton);
-        });
+            if (this.favoritesOrder.length === 0) {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'card-placeholder';
+                placeholder.textContent = 'Dodaj ulubione atrakcje, klikając ikonę serca na kartach';
+                favoritesGrid.appendChild(placeholder);
+                return;
+            }
+
+            this.favoritesOrder.forEach(itemId => {
+                const originalCard = document.querySelector(`[data-id="${itemId}"]`);
+                if (originalCard) {
+                    const cardClone = originalCard.cloneNode(true);
+                    const card = cardClone.querySelector('.card');
+                    if (card) {
+                        card.setAttribute('draggable', 'true');
+                        card.dataset.itemId = itemId;
+                        
+                        // Usuń przycisk ulubionych z klona
+                        const favoriteBtn = card.querySelector('.favorite-btn');
+                        if (favoriteBtn) {
+                            favoriteBtn.remove();
+                        }
+                        
+                        favoritesGrid.appendChild(cardClone);
+                    }
+                }
+            });
+        } catch (e) {
+            console.error('Błąd podczas aktualizacji siatki ulubionych:', e);
+        }
+    }
+
+    initializeDragAndDrop() {
+        try {
+            const favoritesGrid = document.getElementById('favorites-grid');
+            if (!favoritesGrid) return;
+
+            let draggedItem = null;
+
+            favoritesGrid.addEventListener('dragstart', (e) => {
+                const card = e.target.closest('.card');
+                if (card) {
+                    draggedItem = card;
+                    card.classList.add('dragging');
+                    e.dataTransfer.setData('text/plain', card.dataset.itemId);
+                    e.dataTransfer.effectAllowed = 'move';
+                }
+            });
+
+            favoritesGrid.addEventListener('dragend', (e) => {
+                const card = e.target.closest('.card');
+                if (card) {
+                    card.classList.remove('dragging');
+                    draggedItem = null;
+                }
+            });
+
+            favoritesGrid.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const card = e.target.closest('.card');
+                if (card && card !== draggedItem) {
+                    card.classList.add('drag-over');
+                }
+            });
+
+            favoritesGrid.addEventListener('dragleave', (e) => {
+                const card = e.target.closest('.card');
+                if (card) {
+                    card.classList.remove('drag-over');
+                }
+            });
+
+            favoritesGrid.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const dropTarget = e.target.closest('.card');
+                
+                if (dropTarget && draggedItem && dropTarget !== draggedItem) {
+                    const draggedId = draggedItem.dataset.itemId;
+                    const dropId = dropTarget.dataset.itemId;
+                    
+                    const draggedIndex = this.favoritesOrder.indexOf(draggedId);
+                    const dropIndex = this.favoritesOrder.indexOf(dropId);
+                    
+                    if (draggedIndex !== -1 && dropIndex !== -1) {
+                        // Zamień pozycje w tablicy
+                        [this.favoritesOrder[draggedIndex], this.favoritesOrder[dropIndex]] = 
+                        [this.favoritesOrder[dropIndex], this.favoritesOrder[draggedIndex]];
+                        
+                        // Zamień pozycje w DOM
+                        const draggedRect = draggedItem.getBoundingClientRect();
+                        const dropRect = dropTarget.getBoundingClientRect();
+                        
+                        // Animacja zamiany pozycji
+                        draggedItem.style.transition = 'transform 0.3s ease';
+                        dropTarget.style.transition = 'transform 0.3s ease';
+                        
+                        const deltaX = dropRect.left - draggedRect.left;
+                        const deltaY = dropRect.top - draggedRect.top;
+                        
+                        draggedItem.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                        dropTarget.style.transform = `translate(${-deltaX}px, ${-deltaY}px)`;
+                        
+                        // Po zakończeniu animacji, zaktualizuj siatkę
+                        setTimeout(() => {
+                            this.saveFavoritesOrder();
+                            this.updateFavoritesGrid();
+                        }, 300);
+                    }
+                }
+                
+                dropTarget?.classList.remove('drag-over');
+            });
+        } catch (e) {
+            console.error('Błąd podczas inicjalizacji drag and drop:', e);
+        }
     }
     
     toggleFavorite(button, itemId) {
-        if (this.favorites.has(itemId)) {
-            this.favorites.delete(itemId);
-            button.innerHTML = '♡';
-            button.style.color = 'var(--color-text-secondary)';
-            button.setAttribute('aria-label', 'Add to favorites');
-        } else {
-            this.favorites.add(itemId);
-            button.innerHTML = '♥';
-            button.style.color = 'var(--color-error)';
-            button.setAttribute('aria-label', 'Remove from favorites');
+        try {
+            if (this.favorites.has(itemId)) {
+                this.favorites.delete(itemId);
+                this.favoritesOrder = this.favoritesOrder.filter(id => id !== itemId);
+                button.innerHTML = '♡';
+                button.style.color = 'var(--color-text-secondary)';
+                button.setAttribute('aria-label', 'Dodaj do ulubionych');
+            } else {
+                this.favorites.add(itemId);
+                this.favoritesOrder.push(itemId);
+                button.innerHTML = '♥';
+                button.style.color = 'var(--color-error)';
+                button.setAttribute('aria-label', 'Usuń z ulubionych');
+            }
+            this.saveFavorites();
+            this.saveFavoritesOrder();
+            this.updateFavoritesGrid();
+        } catch (e) {
+            console.error('Błąd podczas przełączania ulubionych:', e);
         }
     }
     
@@ -394,20 +631,24 @@ let favoritesManager;
 
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
-    initializeNavigation();
-    initializeFilters();
-    initializeBudgetCalculator();
-    initializeCardInteractions();
-    initializeAccessibility();
-    optimizePerformance();
-    
-    // Initialize favorites manager
-    favoritesManager = new FavoritesManager();
-    
-    // Initial budget calculation with delay to ensure DOM is ready
-    setTimeout(() => {
-        calculateBudget();
-    }, 200);
+    try {
+        initializeNavigation();
+        initializeFilters();
+        initializeBudgetCalculator();
+        initializeCardInteractions();
+        initializeAccessibility();
+        optimizePerformance();
+        
+        // Initialize favorites manager
+        favoritesManager = new FavoritesManager();
+        
+        // Initial budget calculation with delay to ensure DOM is ready
+        setTimeout(() => {
+            calculateBudget();
+        }, 200);
+    } catch (error) {
+        console.error('Błąd podczas inicjalizacji:', error);
+    }
 });
 
 // Handle window resize for responsive behavior
@@ -453,3 +694,173 @@ function hideLoading(element) {
         element.classList.remove('loading');
     }
 }
+
+// Data loading functions
+async function loadCSVData(filePath) {
+    try {
+        const response = await fetch(filePath);
+        const csvText = await response.text();
+        const rows = csvText.split('\n').map(row => row.split(',').map(cell => cell.trim().replace(/^"|"$/g, '')));
+        const headers = rows[0];
+        return rows.slice(1).map(row => {
+            const obj = {};
+            headers.forEach((header, index) => {
+                obj[header] = row[index];
+            });
+            return obj;
+        });
+    } catch (error) {
+        console.error(`Błąd podczas wczytywania ${filePath}:`, error);
+        return [];
+    }
+}
+
+// Initialize data
+let museumsData = [];
+let attractionsData = [];
+let restaurantsData = [];
+let itineraryData = [];
+
+async function initializeData() {
+    try {
+        museumsData = await loadCSVData('data/museums.csv');
+        attractionsData = await loadCSVData('data/attractions.csv');
+        restaurantsData = await loadCSVData('data/restaurants.csv');
+        itineraryData = await loadCSVData('data/itinerary.csv');
+        
+        renderMuseums();
+        renderAttractions();
+        renderRestaurants();
+        renderItinerary();
+    } catch (error) {
+        console.error('Błąd podczas inicjalizacji danych:', error);
+    }
+}
+
+function renderMuseums() {
+    const museumsGrid = document.querySelector('.museums-grid');
+    if (!museumsGrid) return;
+
+    museumsGrid.innerHTML = museumsData.map((museum, index) => `
+        <div class="museum-card" data-category="${museum.category}" data-id="museum_${index}" data-price="${museum.price}">
+            <div class="card">
+                <div class="card__body">
+                    <h3>${museum.name}</h3>
+                    <div class="museum-meta">
+                        <span class="status status--${museum.price === 'Free Permanent' ? 'success' : 'info'}">${museum.price === 'Free Permanent' ? 'Free' : '€' + museum.price}</span>
+                        <span class="status status--${museum.booking_status === 'No Booking Required' ? 'success' : 'warning'}">${museum.booking_status}</span>
+                    </div>
+                    <div class="museum-details">
+                        <p><strong>Highlights:</strong> ${museum.highlights}</p>
+                        <p><strong>Details:</strong> ${museum.details}</p>
+                        <p><strong>Hours:</strong> ${museum.hours}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderAttractions() {
+    const attractionsGrid = document.querySelector('.attractions-grid');
+    if (!attractionsGrid) return;
+
+    attractionsGrid.innerHTML = attractionsData.map((attraction, index) => `
+        <div class="attraction-card" data-category="${attraction.category}" data-id="attraction_${index}" data-price="${attraction.price}">
+            <div class="card">
+                <div class="card__body">
+                    <h3>${attraction.name}</h3>
+                    <div class="attraction-meta">
+                        <span class="status status--${attraction.price === '0' ? 'success' : 'info'}">${attraction.price === '0' ? 'Free' : '€' + attraction.price}</span>
+                        <span class="status status--${attraction.booking_status === 'No Booking Required' ? 'success' : 'warning'}">${attraction.booking_status}</span>
+                    </div>
+                    <div class="attraction-details">
+                        <p><strong>Highlights:</strong> ${attraction.highlights}</p>
+                        <p><strong>Details:</strong> ${attraction.details}</p>
+                        <p><strong>Hours:</strong> ${attraction.hours}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderRestaurants() {
+    const restaurantsGrid = document.querySelector('.restaurants-grid');
+    if (!restaurantsGrid) return;
+
+    restaurantsGrid.innerHTML = restaurantsData.map((restaurant, index) => {
+        const priceRange = restaurant.price_range.replace('€', '');
+        const [minPrice, maxPrice] = priceRange.split('-').map(p => parseFloat(p.trim()));
+        const avgPrice = (minPrice + maxPrice) / 2;
+        
+        return `
+        <div class="restaurant-card" data-category="${restaurant.category}" data-id="restaurant_${index}" data-price="${avgPrice}">
+            <div class="card">
+                <div class="card__body">
+                    <h3>${restaurant.name}</h3>
+                    <div class="restaurant-meta">
+                        <span class="status status--info">€${priceRange}</span>
+                        <span class="status status--success">${restaurant.cuisine}</span>
+                    </div>
+                    <div class="restaurant-details">
+                        <p><strong>Highlights:</strong> ${restaurant.highlights}</p>
+                        <p><strong>Details:</strong> ${restaurant.details}</p>
+                        <p><strong>Hours:</strong> ${restaurant.hours}</p>
+                    </div>
+                </div>
+            </div>
+            </div>`;
+        }).join('');
+}
+
+function renderItinerary() {
+    const itineraryContainer = document.querySelector('.itinerary');
+    if (!itineraryContainer) return;
+
+    const groupedItinerary = itineraryData.reduce((acc, item) => {
+        if (!acc[item.day]) {
+            acc[item.day] = [];
+        }
+        acc[item.day].push(item);
+        return acc;
+    }, {});
+
+    itineraryContainer.innerHTML = Object.entries(groupedItinerary).map(([day, items]) => `
+        <div class="itinerary__day">
+            <h3>${day} - ${items[0].time}</h3>
+            <div class="itinerary__items">
+                ${items.map(item => `
+                    <div class="itinerary__item">
+                        <h4>${item.name}</h4>
+                        <p>${item.description}</p>
+                        <span class="status status--${item.status === 'Free' ? 'success' : item.status === 'Booking Required' ? 'warning' : 'info'}">${item.status === 'Free' ? 'Free' : item.status === 'Booking Required' ? 'Booking Required' : '€' + item.price}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Main initialization
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        await initializeData();
+        initializeNavigation();
+        initializeFilters();
+        initializeBudgetCalculator();
+        initializeCardInteractions();
+        initializeAccessibility();
+        optimizePerformance();
+        
+        // Initialize favorites manager
+        favoritesManager = new FavoritesManager();
+        
+        // Initial budget calculation with delay to ensure DOM is ready
+        setTimeout(() => {
+            calculateBudget();
+        }, 200);
+    } catch (error) {
+        console.error('Błąd podczas inicjalizacji:', error);
+    }
+});

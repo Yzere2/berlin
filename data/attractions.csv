@@ -1,0 +1,9 @@
+name,category,price,booking_status,highlights,details,hours
+"Brandenburg Gate",landmark,0,"No Booking Required","Iconic symbol of Berlin, Quadriga statue, Pariser Platz","Berlin's most famous landmark and symbol of German unity","24/7"
+"Reichstag Dome",landmark,0,"Booking Required","Glass dome, City views, Parliamentary history","Modern glass dome on top of the historic Reichstag building","Daily 8:00-24:00"
+"East Side Gallery",landmark,0,"No Booking Required","Berlin Wall art, Political murals, Historical significance","1.3km of Berlin Wall transformed into open-air gallery","24/7"
+"Checkpoint Charlie",landmark,0,"No Booking Required","Cold War history, Border crossing, Museum nearby","Famous Cold War border crossing point","24/7"
+"Topography of Terror",museum,0,"No Booking Required","Nazi history, Documentation center, Outdoor exhibition","Former SS and Gestapo headquarters","Daily 10:00-20:00"
+"Berlin TV Tower",viewpoint,21.50,"Booking Available","City views, Restaurant, Observation deck","Tallest building in Germany with panoramic views","Daily 9:00-24:00"
+"Berlin Wall Memorial",landmark,0,"No Booking Required","Original wall segments, Documentation center, Memorial site","Preserved section of the Berlin Wall with memorial","Daily 8:00-22:00"
+"Victory Column",landmark,4,"No Booking Required","Golden statue, City views, Historical significance","Iconic monument in Tiergarten park","Daily 9:30-18:30" 

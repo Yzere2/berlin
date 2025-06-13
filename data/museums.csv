@@ -1,0 +1,9 @@
+name,category,price,booking_status,highlights,details,hours
+"Museum Island (Museumsinsel)",staatliche,24,"Book Online","Pergamon Altar, Nefertiti Bust, Ishtar Gate, Byzantine Art","UNESCO World Heritage Site with 5 world-class museums","Tue-Sun 10:00-18:00, Thu until 20:00, Closed Mondays"
+"Pergamon Museum",staatliche,14,"Online Essential","Ishtar Gate, Processional Way, Mshatta Palace facade","World's largest collection of ancient architecture (currently limited access due to renovation)","Tue-Sun 10:00-18:00, Thu until 20:00"
+"Neues Museum",staatliche,14,"Book Recommended","Nefertiti Bust, Egyptian collection, Prehistory artifacts","Rebuilt after WWII, stunning architecture by David Chipperfield","Tue-Sun 10:00-18:00, Thu until 20:00"
+"Bode Museum",staatliche,12,"Optional Booking","Byzantine Art, Sculpture collection, Numismatic collection","Beautiful dome building at Museum Island's tip","Tue-Sun 10:00-18:00"
+"Jewish Museum Berlin",specialty,"Free Permanent, €10 Temporary","No Booking Required","Daniel Libeskind architecture, German-Jewish history, Interactive exhibits","Europe's largest Jewish museum with striking zigzag design","Daily 10:00-18:00"
+"DDR Museum",specialty,13.50,"Booking Available","Interactive GDR exhibits, Trabant car simulator, Authentic apartment","Hands-on experience of life in East Germany","Daily 9:00-21:00"
+"German Historical Museum",specialty,7,"No Booking Required","2000 years of German history, Weapons collection, Modern history","From Roman times to present day","Daily 10:00-18:00"
+"Natural History Museum",specialty,11,"Booking Available","World's largest dinosaur skeleton, Wet collection, Evolution hall","One of the world's largest natural history museums","Tue-Fri 9:30-18:00, Sat-Sun 10:00-18:00" 

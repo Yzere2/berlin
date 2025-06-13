@@ -1,0 +1,8 @@
+day,time,name,description,price,status
+"Day 1","Morning","Brandenburg Gate & Pariser Platz","Start at Berlin's most iconic landmark",0,"Free"
+"Day 1","Morning","Reichstag Dome","Book advance tickets for panoramic city views",0,"Booking Required"
+"Day 1","Morning","Museum Island","UNESCO World Heritage Site with world-class museums",24,"Paid"
+"Day 1","Afternoon","East Side Gallery","1.3km of Berlin Wall transformed into open-air gallery",0,"Free"
+"Day 1","Afternoon","Dinner in Kreuzberg","Explore vibrant food scene with budget-friendly options","3-15","Paid"
+"Day 2","Morning","Topography of Terror","Learn about Nazi history at former SS headquarters",0,"Free"
+"Day 2","Morning","Checkpoint Charlie","Famous Cold War border crossing",0,"Free" 
