@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlin 1.5-Day Weekend Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">🇩🇪 Berlin 1.5-Day Weekend Guide</h1>
+                <div class="header__subtitle">Your complete guide to experiencing Berlin in one amazing weekend</div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="container">
+                <div class="nav__tabs">
+                    <button class="nav__tab nav__tab--active" data-section="itinerary">📅 Itinerary</button>
+                    <button class="nav__tab" data-section="neighborhoods">🏘️ Neighborhoods</button>
+                    <button class="nav__tab" data-section="transportation">🚇 Transportation</button>
+                    <button class="nav__tab" data-section="food">🍽️ Food & Dining</button>
+                    <button class="nav__tab" data-section="tips">💡 Practical Tips</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Budget Summary (always visible) -->
+                <div class="budget-summary">
+                    <div class="budget-summary__item">
+                        <span class="budget-summary__label">Total Estimated Cost:</span>
+                        <span class="budget-summary__value" id="totalBudget">€0</span>
+                    </div>
+                    <div class="budget-summary__item">
+                        <span class="budget-summary__label">Activities Completed:</span>
+                        <span class="budget-summary__value" id="completedCount">0/12</span>
+                    </div>
+                </div>
+
+                <!-- Itinerary Section -->
+                <section class="section section--active" id="itinerary">
+                    <h2 class="section__title">Your Berlin Weekend Itinerary</h2>
+                    <div class="itinerary-controls">
+                        <button class="btn btn--secondary btn--sm" id="printItinerary">🖨️ Print Itinerary</button>
+                        <button class="btn btn--secondary btn--sm" id="shareItinerary">📤 Share Itinerary</button>
+                    </div>
+                    
+                    <!-- Saturday Activities -->
+                    <div class="day-section">
+                        <h3 class="day-section__title">Saturday (Half Day)</h3>
+                        <div class="timeline" id="saturdayTimeline"></div>
+                    </div>
+
+                    <!-- Sunday Activities -->
+                    <div class="day-section">
+                        <h3 class="day-section__title">Sunday (Full Day)</h3>
+                        <div class="timeline" id="sundayTimeline"></div>
+                    </div>
+                </section>
+
+                <!-- Neighborhoods Section -->
+                <section class="section" id="neighborhoods">
+                    <h2 class="section__title">Explore Berlin's Districts</h2>
+                    <div class="neighborhoods-chart">
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1749818311/pplx_code_interpreter/8b365fac_ebdxf4.jpg" alt="Berlin Neighborhood Characteristics Chart" class="chart-image">
+                    </div>
+                    <div class="neighborhoods-grid" id="neighborhoodsGrid"></div>
+                </section>
+
+                <!-- Transportation Section -->
+                <section class="section" id="transportation">
+                    <h2 class="section__title">Getting Around Berlin</h2>
+                    <div class="transport-calculator">
+                        <h3>🧮 Ticket Calculator</h3>
+                        <div class="form-group">
+                            <label class="form-label" for="tripType">Select your travel needs:</label>
+                            <select class="form-control" id="tripType">
+                                <option value="">Choose ticket type...</option>
+                                <option value="single">Single trips (pay per ride)</option>
+                                <option value="day">24-hour ticket</option>
+                                <option value="weekend">48-hour ticket (recommended)</option>
+                                <option value="welcome">Berlin WelcomeCard 48h</option>
+                                <option value="group">Group ticket (up to 5 people)</option>
+                            </select>
+                        </div>
+                        <div class="transport-result" id="transportResult"></div>
+                    </div>
+                    <div class="transport-options" id="transportOptions"></div>
+                    <div class="transport-tips">
+                        <h3>🚇 Weekend Transport Tips</h3>
+                        <ul>
+                            <li>Public transport runs 24/7 on weekends (Friday night to Sunday night)</li>
+                            <li>Zone A covers city center, Zone B extends to city limits</li>
+                            <li>Most attractions are in Zone A&B</li>
+                            <li>Buy tickets from machines or BVG app</li>
+                            <li>Always validate paper tickets before use</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Food & Dining Section -->
+                <section class="section" id="food">
+                    <h2 class="section__title">Food & Dining Guide</h2>
+                    <div class="food-categories">
+                        <div class="food-category">
+                            <h3 class="food-category__title">🥞 Brunch Spots</h3>
+                            <div class="food-category__content" id="brunchSpots"></div>
+                        </div>
+                        <div class="food-category">
+                            <h3 class="food-category__title">🍺 German Cuisine</h3>
+                            <div class="food-category__content" id="germanFood"></div>
+                        </div>
+                        <div class="food-category">
+                            <h3 class="food-category__title">🍸 Bars & Nightlife</h3>
+                            <div class="food-category__content" id="nightlife"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Practical Tips Section -->
+                <section class="section" id="tips">
+                    <h2 class="section__title">Practical Tips for Your Visit</h2>
+                    <div class="tips-grid">
+                        <div class="tips-card">
+                            <h3 class="tips-card__title">🛡️ Safety Tips</h3>
+                            <ul class="tips-card__list" id="safetyTips"></ul>
+                        </div>
+                        <div class="tips-card">
+                            <h3 class="tips-card__title">🌤️ Weather & Clothing</h3>
+                            <ul class="tips-card__list" id="weatherTips"></ul>
+                        </div>
+                        <div class="tips-card">
+                            <h3 class="tips-card__title">🏛️ Cultural Etiquette</h3>
+                            <ul class="tips-card__list" id="culturalTips"></ul>
+                        </div>
+                        <div class="tips-card">
+                            <h3 class="tips-card__title">📞 Emergency Contacts</h3>
+                            <div class="emergency-contacts">
+                                <div class="contact-item">
+                                    <strong>Police:</strong> 110
+                                </div>
+                                <div class="contact-item">
+                                    <strong>Fire/Medical:</strong> 112
+                                </div>
+                                <div class="contact-item">
+                                    <strong>Tourist Hotline:</strong> +49 30 25 00 25
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>Have an amazing weekend in Berlin! 🎉</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
