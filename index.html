@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlin Weekend Guide - Complete Travel Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__title">
+                    <h1>Berlin Weekend Guide</h1>
+                    <p>Your complete 1.5-day travel companion</p>
+                </div>
+                <div class="header__flag">
+                    <div class="flag">
+                        <div class="flag__stripe flag__stripe--black"></div>
+                        <div class="flag__stripe flag__stripe--red"></div>
+                        <div class="flag__stripe flag__stripe--yellow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__tabs">
+                <button class="nav__tab nav__tab--active" data-tab="itinerary">Itinerary</button>
+                <button class="nav__tab" data-tab="museums">Museums</button>
+                <button class="nav__tab" data-tab="attractions">Attractions</button>
+                <button class="nav__tab" data-tab="dining">Dining</button>
+                <button class="nav__tab" data-tab="budget">Budget</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="container">
+            <!-- Itinerary Section -->
+            <section id="itinerary" class="section section--active">
+                <div class="section__header">
+                    <h2>1.5 Day Berlin Itinerary</h2>
+                    <p>Perfect weekend adventure through Germany's capital</p>
+                </div>
+                
+                <div class="itinerary">
+                    <div class="itinerary__day">
+                        <h3>Day 1 - Morning</h3>
+                        <div class="itinerary__items">
+                            <div class="itinerary__item">
+                                <h4>Brandenburg Gate & Pariser Platz</h4>
+                                <p>Start at Berlin's most iconic landmark (Free)</p>
+                                <span class="status status--success">Free</span>
+                            </div>
+                            <div class="itinerary__item">
+                                <h4>Reichstag Dome</h4>
+                                <p>Book advance tickets for panoramic city views (Free with registration)</p>
+                                <span class="status status--warning">Booking Required</span>
+                            </div>
+                            <div class="itinerary__item">
+                                <h4>Museum Island</h4>
+                                <p>UNESCO World Heritage Site with world-class museums (€24 day ticket)</p>
+                                <span class="status status--info">€24</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="itinerary__day">
+                        <h3>Day 1 - Afternoon</h3>
+                        <div class="itinerary__items">
+                            <div class="itinerary__item">
+                                <h4>East Side Gallery</h4>
+                                <p>1.3km of Berlin Wall transformed into open-air gallery (Free)</p>
+                                <span class="status status--success">Free</span>
+                            </div>
+                            <div class="itinerary__item">
+                                <h4>Dinner in Kreuzberg</h4>
+                                <p>Explore vibrant food scene with budget-friendly options</p>
+                                <span class="status status--info">€3-15</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="itinerary__day">
+                        <h3>Day 2 - Morning</h3>
+                        <div class="itinerary__items">
+                            <div class="itinerary__item">
+                                <h4>Topography of Terror</h4>
+                                <p>Learn about Nazi history at former SS headquarters (Free)</p>
+                                <span class="status status--success">Free</span>
+                            </div>
+                            <div class="itinerary__item">
+                                <h4>Checkpoint Charlie</h4>
+                                <p>Famous Cold War border crossing (Free to visit area)</p>
+                                <span class="status status--success">Free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Museums Section -->
+            <section id="museums" class="section">
+                <div class="section__header">
+                    <h2>Berlin Museums Guide</h2>
+                    <p>World-class collections and unique exhibitions</p>
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-tab filter-tab--active" data-filter="all">All Museums</button>
+                    <button class="filter-tab" data-filter="staatliche">State Museums</button>
+                    <button class="filter-tab" data-filter="specialty">Specialty</button>
+                    <button class="filter-tab" data-filter="free">Free Entry</button>
+                </div>
+
+                <div class="museums-grid">
+                    <!-- State Museums -->
+                    <div class="museum-card" data-category="staatliche">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Museum Island (Museumsinsel)</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€24 Day Ticket</span>
+                                    <span class="status status--warning">Book Online</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Pergamon Altar, Nefertiti Bust, Ishtar Gate, Byzantine Art</p>
+                                    <p><strong>Details:</strong> UNESCO World Heritage Site with 5 world-class museums</p>
+                                    <p><strong>Hours:</strong> Tue-Sun 10:00-18:00, Thu until 20:00, Closed Mondays</p>
+                                    <p><strong>Individual prices:</strong> €12-14 per museum</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="staatliche">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Pergamon Museum</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€14</span>
+                                    <span class="status status--error">Online Essential</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Ishtar Gate, Processional Way, Mshatta Palace facade</p>
+                                    <p><strong>Details:</strong> World's largest collection of ancient architecture (currently limited access due to renovation)</p>
+                                    <p><strong>Hours:</strong> Tue-Sun 10:00-18:00, Thu until 20:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="staatliche">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Neues Museum</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€14</span>
+                                    <span class="status status--warning">Book Recommended</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Nefertiti Bust, Egyptian collection, Prehistory artifacts</p>
+                                    <p><strong>Details:</strong> Rebuilt after WWII, stunning architecture by David Chipperfield</p>
+                                    <p><strong>Hours:</strong> Tue-Sun 10:00-18:00, Thu until 20:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="staatliche">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Bode Museum</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€12</span>
+                                    <span class="status status--success">Optional Booking</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Byzantine Art, Sculpture collection, Numismatic collection</p>
+                                    <p><strong>Details:</strong> Beautiful dome building at Museum Island's tip</p>
+                                    <p><strong>Hours:</strong> Tue-Sun 10:00-18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specialty Museums -->
+                    <div class="museum-card" data-category="specialty">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Jewish Museum Berlin</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--success">Free Permanent</span>
+                                    <span class="status status--info">€10 Temporary</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Daniel Libeskind architecture, German-Jewish history, Interactive exhibits</p>
+                                    <p><strong>Details:</strong> Europe's largest Jewish museum with striking zigzag design</p>
+                                    <p><strong>Hours:</strong> Daily 10:00-18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="specialty">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>DDR Museum</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€13.50</span>
+                                    <span class="status status--success">Booking Available</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Interactive GDR exhibits, Trabant car simulator, Authentic apartment</p>
+                                    <p><strong>Details:</strong> Hands-on experience of life in East Germany</p>
+                                    <p><strong>Hours:</strong> Daily 9:00-21:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="specialty">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>German Historical Museum</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€7</span>
+                                    <span class="status status--success">No Booking Required</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> 2000 years of German history, Weapons collection, Modern history</p>
+                                    <p><strong>Details:</strong> From Roman times to present day</p>
+                                    <p><strong>Hours:</strong> Daily 10:00-18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="specialty">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Natural History Museum</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--info">€11</span>
+                                    <span class="status status--success">Booking Available</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Dinosaur skeletons, Mineral collection, Interactive displays</p>
+                                    <p><strong>Details:</strong> One of the world's largest natural history collections</p>
+                                    <p><strong>Hours:</strong> Tue-Fri 9:30-18:00, Sat-Sun 10:00-18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Free Museums -->
+                    <div class="museum-card" data-category="free">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Topography of Terror</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--success">Free</span>
+                                    <span class="status status--success">No Booking Required</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Nazi history documentation, Gestapo headquarters site, Historical photos</p>
+                                    <p><strong>Details:</strong> Located on former SS and Gestapo headquarters</p>
+                                    <p><strong>Hours:</strong> Daily 10:00-20:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="museum-card" data-category="free">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Berlin Wall Memorial</h3>
+                                <div class="museum-meta">
+                                    <span class="status status--success">Free</span>
+                                    <span class="status status--success">No Booking Required</span>
+                                </div>
+                                <div class="museum-details">
+                                    <p><strong>Highlights:</strong> Original wall sections, Documentation center, Escape stories</p>
+                                    <p><strong>Details:</strong> 1.4km memorial preserving the Wall's history</p>
+                                    <p><strong>Hours:</strong> Tue-Sun 10:00-18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attractions Section -->
+            <section id="attractions" class="section">
+                <div class="section__header">
+                    <h2>Berlin Attractions</h2>
+                    <p>Must-see sights and unique experiences</p>
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-tab filter-tab--active" data-filter="all">All Attractions</button>
+                    <button class="filter-tab" data-filter="iconic">Iconic Sights</button>
+                    <button class="filter-tab" data-filter="palaces">Palaces & Gardens</button>
+                    <button class="filter-tab" data-filter="unique">Unique Experiences</button>
+                </div>
+
+                <div class="attractions-grid">
+                    <!-- Iconic Sights -->
+                    <div class="attraction-card" data-category="iconic">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Brandenburg Gate</h3>
+                                <div class="attraction-meta">
+                                    <span class="status status--success">Free</span>
+                                    <span class="status status--success">No Booking Required</span>
+                                </div>
+                                <div class="attraction-details">
+                                    <p><strong>Highlights:</strong> Neoclassical architecture, Symbol of unity, Photo opportunities</p>
+                                    <p><strong>Details:</strong> Berlin's most famous landmark and symbol of reunification</p>
+                                    <p><strong>Hours:</strong> 24/7 accessible</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="attraction-card" data-category="iconic">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Reichstag Dome</h3>
+                                <div class="attraction-meta">
+                                    <span class="status status--success">Free</span>
+                                    <span class="status status--error">Registration Required</span>
+                                </div>
+                                <div class="attraction-details">
+                                    <p><strong>Highlights:</strong> 360° city views, Glass dome architecture, Parliamentary tours</p>
+                                    <p><strong>Details:</strong> Book 2-3 weeks in advance, bring passport for security</p>
+                                    <p><strong>Hours:</strong> Daily 8:00-21:30, last entry 21:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="attraction-card" data-category="iconic">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>TV Tower (Fernsehturm)</h3>
+                                <div class="attraction-meta">
+                                    <span class="status status--info">€27.50+</span>
+                                    <span class="status status--warning">Book Recommended</span>
+                                </div>
+                                <div class="attraction-details">
+                                    <p><strong>Highlights:</strong> 368m viewing platform, Panoramic city views, VR experience available</p>
+                                    <p><strong>Details:</strong> Berlin's tallest structure with restaurant option</p>
+                                    <p><strong>Hours:</strong> Daily 9:00-24:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Palaces & Gardens -->
+                    <div class="attraction-card" data-category="palaces">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Charlottenburg Palace</h3>
+                                <div class="attraction-meta">
+                                    <span class="status status--info">€19 Combined</span>
+                                    <span class="status status--warning">Book Recommended</span>
+                                </div>
+                                <div class="attraction-details">
+                                    <p><strong>Highlights:</strong> Baroque palace rooms, Rococo decoration, Palace gardens</p>
+                                    <p><strong>Details:</strong> Berlin's largest palace complex with beautiful gardens</p>
+                                    <p><strong>Hours:</strong> Tue-Sun 10:00-17:30 (summer), 10:00-16:30 (winter)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unique Experiences -->
+                    <div class="attraction-card" data-category="unique">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Berlin Zoo</h3>
+                                <div class="attraction-meta">
+                                    <span class="status status--info">€15</span>
+                                    <span class="status status--success">Online Tickets Available</span>
+                                </div>
+                                <div class="attraction-details">
+                                    <p><strong>Highlights:</strong> Panda bears, Aquarium, Historic zoo buildings</p>
+                                    <p><strong>Details:</strong> One of the world's oldest zoos with over 20,000 animals</p>
+                                    <p><strong>Hours:</strong> Daily 9:00-18:00 (varies by season)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="attraction-card" data-category="unique">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>East Side Gallery</h3>
+                                <div class="attraction-meta">
+                                    <span class="status status--success">Free</span>
+                                    <span class="status status--success">No Booking Required</span>
+                                </div>
+                                <div class="attraction-details">
+                                    <p><strong>Highlights:</strong> Longest open-air gallery, Street art, Historical murals</p>
+                                    <p><strong>Details:</strong> 1.3km section of Berlin Wall with artistic murals</p>
+                                    <p><strong>Hours:</strong> 24/7 accessible</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dining Section -->
+            <section id="dining" class="section">
+                <div class="section__header">
+                    <h2>Berlin Dining Guide</h2>
+                    <p>From budget eats to mid-range gems</p>
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-tab filter-tab--active" data-filter="all">All Restaurants</button>
+                    <button class="filter-tab" data-filter="budget">Budget (€3-8)</button>
+                    <button class="filter-tab" data-filter="midrange">Mid-Range (€10-25)</button>
+                    <button class="filter-tab" data-filter="markets">Markets & Street Food</button>
+                </div>
+
+                <div class="restaurants-grid">
+                    <!-- Budget Options -->
+                    <div class="restaurant-card" data-category="budget">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Curry 36</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--success">€3-5</span>
+                                    <span class="cuisine-tag">German Street Food</span>
+                                    <span class="location-tag">Kreuzberg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Currywurst</p>
+                                    <p>Legendary currywurst since 1980, Berlin's most famous street food</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="budget">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Mustafa's Gemüse Kebap</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--success">€3-6</span>
+                                    <span class="cuisine-tag">Turkish</span>
+                                    <span class="location-tag">Kreuzberg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Döner kebab with vegetables</p>
+                                    <p>Famous for fresh vegetable döner, expect long queues</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="budget">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Sahara Imbiss</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--success">€3</span>
+                                    <span class="cuisine-tag">Sudanese</span>
+                                    <span class="location-tag">Multiple locations</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Falafel with peanut sauce</p>
+                                    <p>Fresh falafel in pita with signature peanut sauce</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="budget">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Panda Meister</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--success">€7.50</span>
+                                    <span class="cuisine-tag">Chinese</span>
+                                    <span class="location-tag">Friedrichshain</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> 15 dumplings</p>
+                                    <p>Authentic Chinese dumplings, steamed or fried</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="budget">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Magic John's</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--success">€2.50-5</span>
+                                    <span class="cuisine-tag">American</span>
+                                    <span class="location-tag">Mitte</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> NY-style pizza by slice</p>
+                                    <p>Best New York-style pizza in Berlin, by the slice</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="budget">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Lebanon Falafel</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--success">€3-5</span>
+                                    <span class="cuisine-tag">Middle Eastern</span>
+                                    <span class="location-tag">Boddinstraße</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Falafel plates</p>
+                                    <p>Authentic Lebanese falafel with fresh ingredients</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mid-Range Options -->
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Zur Letzten Instanz</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€15-25</span>
+                                    <span class="cuisine-tag">Traditional German</span>
+                                    <span class="location-tag">Mitte</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Schnitzel, Sauerbraten</p>
+                                    <p>Berlin's oldest restaurant (1621), traditional German cuisine</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Borchardt</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€20-35</span>
+                                    <span class="cuisine-tag">Austrian-French</span>
+                                    <span class="location-tag">Mitte</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Wiener Schnitzel</p>
+                                    <p>Elegant brasserie, celebrity favorite, excellent schnitzel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Jolesch</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€18-28</span>
+                                    <span class="cuisine-tag">Austrian</span>
+                                    <span class="location-tag">Kreuzberg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Traditional Austrian dishes</p>
+                                    <p>Authentic Austrian cuisine in vibrant Kreuzberg</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Ottenthal</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€16-26</span>
+                                    <span class="cuisine-tag">Austrian</span>
+                                    <span class="location-tag">Multiple locations</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Comfort Austrian food</p>
+                                    <p>Feel-good Austrian cuisine, perfect for schnitzel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Rosa Caleta</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€15-25</span>
+                                    <span class="cuisine-tag">Jamaican Fusion</span>
+                                    <span class="location-tag">Kreuzberg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Inventive Jamaican fusion</p>
+                                    <p>Creative Jamaican fusion with authentic ingredients</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Huong Que</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€10-15</span>
+                                    <span class="cuisine-tag">Vietnamese</span>
+                                    <span class="location-tag">Kreuzberg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Pho and Vietnamese dishes</p>
+                                    <p>Cozy Vietnamese restaurant with generous portions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Schnitzelei Mitte</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€12-20</span>
+                                    <span class="cuisine-tag">German</span>
+                                    <span class="location-tag">Mitte</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Variety of schnitzels</p>
+                                    <p>Dedicated schnitzel restaurant with quality ingredients</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="midrange">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Restaurant Marjellchen</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€15-25</span>
+                                    <span class="cuisine-tag">Traditional German</span>
+                                    <span class="location-tag">Charlottenburg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> East Prussian cuisine</p>
+                                    <p>Traditional German regional cuisine</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Markets & Street Food -->
+                    <div class="restaurant-card" data-category="markets">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Markthalle Neun</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€5-15</span>
+                                    <span class="cuisine-tag">International</span>
+                                    <span class="location-tag">Kreuzberg</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Street Food Thursdays</p>
+                                    <p>Historic market hall, Thursday street food event 17:00-22:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="markets">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Thai Park</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€4-8</span>
+                                    <span class="cuisine-tag">Thai</span>
+                                    <span class="location-tag">Wilmersdorf</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> Authentic Thai street food</p>
+                                    <p>Weekend Thai food market in park setting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="restaurant-card" data-category="markets">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>YAAM Berlin</h3>
+                                <div class="restaurant-meta">
+                                    <span class="status status--info">€6-12</span>
+                                    <span class="cuisine-tag">African</span>
+                                    <span class="location-tag">Friedrichshain</span>
+                                </div>
+                                <div class="restaurant-details">
+                                    <p><strong>Specialty:</strong> African cuisine varieties</p>
+                                    <p>Young African Artisan Market with beach area</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Budget Calculator Section -->
+            <section id="budget" class="section">
+                <div class="section__header">
+                    <h2>Budget Calculator</h2>
+                    <p>Plan your Berlin weekend expenses</p>
+                </div>
+
+                <div class="budget-calculator">
+                    <div class="budget-form">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Calculate Your Trip Cost</h3>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Museums & Attractions</label>
+                                    <select id="museum-package" class="form-control">
+                                        <option value="0">None</option>
+                                        <option value="24">Museum Island Day Ticket (€24)</option>
+                                        <option value="14">Single Museum Entry (€14)</option>
+                                        <option value="42">Multiple Museums (€42)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Daily Food Budget</label>
+                                    <select id="food-budget" class="form-control">
+                                        <option value="15">Budget (€15/day)</option>
+                                        <option value="35">Mid-range (€35/day)</option>
+                                        <option value="60">Higher-end (€60/day)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Transportation</label>
+                                    <select id="transport" class="form-control">
+                                        <option value="8.80">Day Ticket AB (€8.80/day)</option>
+                                        <option value="9.60">Day Ticket ABC (€9.60/day)</option>
+                                        <option value="16">Weekend Ticket (€16 total)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Number of Days</label>
+                                    <input type="number" id="days" class="form-control" value="1.5" step="0.5" min="1" max="7">
+                                </div>
+
+                                <button class="btn btn--primary btn--full-width" id="calculate-btn">Calculate Total</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="budget-result">
+                        <div class="card">
+                            <div class="card__body">
+                                <h3>Your Estimated Budget</h3>
+                                <div id="budget-breakdown">
+                                    <p>Select options and click calculate to see your budget breakdown</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
