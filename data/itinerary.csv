@@ -1,8 +1,17 @@
-day,time,name,description,price,status
-"Day 1","Morning","Brandenburg Gate & Pariser Platz","Start at Berlin's most iconic landmark",0,"Free"
-"Day 1","Morning","Reichstag Dome","Book advance tickets for panoramic city views",0,"Booking Required"
-"Day 1","Morning","Museum Island","UNESCO World Heritage Site with world-class museums",24,"Paid"
-"Day 1","Afternoon","East Side Gallery","1.3km of Berlin Wall transformed into open-air gallery",0,"Free"
-"Day 1","Afternoon","Dinner in Kreuzberg","Explore vibrant food scene with budget-friendly options","3-15","Paid"
-"Day 2","Morning","Topography of Terror","Learn about Nazi history at former SS headquarters",0,"Free"
-"Day 2","Morning","Checkpoint Charlie","Famous Cold War border crossing",0,"Free" 
+Day,Time,Activity,Cost(€),Duration,Location,Type
+1,15:00,Hotel Check-in Schöneberg,Free,0:30,Schöneberg,Accommodation
+1,15:30,Potsdamer Platz,Free,1:00,Mitte,Landmark
+1,16:30,Holocaust Memorial,Free,1:00,Mitte,Memorial
+1,17:30,Brandenburg Gate,Free,0:30,Mitte,Landmark
+1,18:00,Reichstag Dome,Free*,1:30,Mitte,Viewpoint
+1,19:30,Dinner at Katz Orange,28.00,1:30,Mitte,Restaurant
+1,21:00,Unter den Linden Walk,Free,0:30,Mitte,Leisure
+2,09:00,Breakfast Hackesche Höfe,8.00,1:00,Mitte,Restaurant
+2,10:00,Museum Island,24.00,4:00,Mitte,Museum
+2,14:00,Lunch Burgermeister,6.50,0:30,Kreuzberg,Restaurant
+2,14:30,East Side Gallery,Free,1:30,Friedrichshain,Art
+2,16:00,Checkpoint Charlie,Free,0:30,Mitte,Historic Site
+2,16:30,Topography of Terror,Free,1:30,Mitte,Museum
+2,18:00,Dinner Prater Garten,14.50,1:30,Prenzlauer Berg,Restaurant
+2,19:30,TV Tower (Optional),21.50,1:00,Mitte,Viewpoint
+2,20:30,Return to Hotel,Free,0:30,Schöneberg,Transport

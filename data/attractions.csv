@@ -1,9 +1,21 @@
-name,category,price,booking_status,highlights,details,hours
-"Brandenburg Gate",landmark,0,"No Booking Required","Iconic symbol of Berlin, Quadriga statue, Pariser Platz","Berlin's most famous landmark and symbol of German unity","24/7"
-"Reichstag Dome",landmark,0,"Booking Required","Glass dome, City views, Parliamentary history","Modern glass dome on top of the historic Reichstag building","Daily 8:00-24:00"
-"East Side Gallery",landmark,0,"No Booking Required","Berlin Wall art, Political murals, Historical significance","1.3km of Berlin Wall transformed into open-air gallery","24/7"
-"Checkpoint Charlie",landmark,0,"No Booking Required","Cold War history, Border crossing, Museum nearby","Famous Cold War border crossing point","24/7"
-"Topography of Terror",museum,0,"No Booking Required","Nazi history, Documentation center, Outdoor exhibition","Former SS and Gestapo headquarters","Daily 10:00-20:00"
-"Berlin TV Tower",viewpoint,21.50,"Booking Available","City views, Restaurant, Observation deck","Tallest building in Germany with panoramic views","Daily 9:00-24:00"
-"Berlin Wall Memorial",landmark,0,"No Booking Required","Original wall segments, Documentation center, Memorial site","Preserved section of the Berlin Wall with memorial","Daily 8:00-22:00"
-"Victory Column",landmark,4,"No Booking Required","Golden statue, City views, Historical significance","Iconic monument in Tiergarten park","Daily 9:30-18:30" 
+Attraction,Category,Price(€),Time_Spent(hours),Score,Food_Recommendation,Food_Price(€),Accessibility
+Brandenburg Gate,Landmark,Free,1.5,15.0,N/A,N/A,Yes
+Reichstag Dome,Viewpoint,Free,1.5,15.0,N/A,N/A,Yes*
+Berlin Wall Memorial,Memorial,Free,2.0,20.0,N/A,N/A,Yes
+East Side Gallery,Art,Free,1.5,15.0,N/A,N/A,Yes
+Holocaust Memorial,Memorial,Free,2.0,20.0,N/A,N/A,Yes
+Museum Island,Museum Complex,24.0,4.0,6.67,N/A,N/A,Yes
+Checkpoint Charlie,Historic Site,Free,1.0,10.0,N/A,N/A,Yes
+Charlottenburg Palace,Palace,17.0,2.5,3.68,Café Prinzessinnen,7.50,Partial
+Teufelsberg,Viewpoint,7.0,2.0,5.71,N/A,N/A,No
+Gendarmenmarkt,Square,Free,1.0,10.0,Chocolate House Fassbender,12.00,Yes
+Jewish Museum Berlin,Museum,10.0,2.5,6.25,Museum Café,8.50,Yes
+German Historical Museum,Museum,7.0,2.5,3.57,N/A,N/A,Yes
+DDR Museum,Museum,13.5,2.0,1.48,N/A,N/A,Yes
+Berlin Cathedral,Church,8.0,1.5,1.88,Dome Café,6.00,Partial
+Victory Column,Monument,4.0,1.0,2.50,N/A,N/A,Yes
+Pergamon Museum,Museum,19.0,3.0,2.11,N/A,N/A,Yes
+Tempelhofer Feld,Park,Free,3.0,30.0,Street Food Thu-Mon,5.00-12.00,Yes
+Kaufhaus des Westens,Department Store,Free,2.0,10.0,6th Floor Food Hall,15.00-30.00,Yes
+Soviet War Memorial,Memorial,Free,0.5,10.0,N/A,N/A,Yes
+Oberbaum Bridge,Landmark,Free,0.5,10.0,N/A,N/A,Yes

@@ -1,9 +1,21 @@
-name,category,price_range,cuisine,highlights,details,hours
-"Curry 36",street_food,"€3-5",german,"Currywurst, Fries, Local favorite","Famous currywurst stand with multiple locations","Daily 9:00-5:00"
-"Mustafa's Gemüse Kebap",street_food,"€4-6",turkish,"Vegetarian kebap, Fresh vegetables, Long queues","Popular Turkish street food in Kreuzberg","Daily 10:00-2:00"
-"Markthalle Neun",market,"€5-15",international,"Food market, Local vendors, Street food","Historic market hall with food vendors","Thu-Fri 12:00-18:00, Sat 10:00-18:00"
-"Katz Orange",restaurant,"€20-40",german,"Modern German cuisine, Craft cocktails, Historic setting","Upscale restaurant in a historic brewery","Tue-Sat 18:00-23:00"
-"Lokal",restaurant,"€15-30",german,"Local ingredients, Seasonal menu, Cozy atmosphere","Modern German bistro in Mitte","Daily 12:00-23:00"
-"Konnopke's Imbiss",street_food,"€3-5",german,"Traditional currywurst, Historic stand, Local favorite","Oldest currywurst stand in Berlin","Mon-Fri 11:00-20:00, Sat 11:00-16:00"
-"Cafe am Neuen See",cafe,"€10-20",german,"Lakeside dining, Beer garden, Traditional food","Beautiful lakeside cafe in Tiergarten","Daily 10:00-22:00"
-"Katz Orange",restaurant,"€20-40",german,"Modern German cuisine, Craft cocktails, Historic setting","Upscale restaurant in a historic brewery","Tue-Sat 18:00-23:00" 
+Restaurant,Cuisine,Price_Range(€),Score,Recommended_Dish,Dish_Price(€),Accessibility
+Curry 36,Street Food,3-6,8.4,Currywurst mit Pommes,4.50,Yes
+Mustafa's Gemüse Kebap,Turkish,5-7,9.1,Vegetarischer Döner,5.50,Yes
+Burgermeister,American,6-9,7.8,Chili Cheese Burger,6.50,Yes
+Katz Orange,German Fusion,25-40,8.9,Slow-Cooked Duck Leg,28.00,Yes
+Prater Garten,German,12-20,8.0,Pork Schnitzel,14.50,Yes
+Lokal,German,18-30,8.5,Organic Schnitzel,18.50,Yes
+Tim Raue,Asian Fusion,150-200,9.5,8-Course Tasting Menu,198.00,Yes
+Markthalle Neun,International,8-15,8.2,Thursday Street Food,10.00-15.00,Yes
+Companion Coffee,Café,4-8,7.9,Avocado Toast,7.50,Yes
+Restaurant Marjellchen,German,15-25,8.3,Königsberger Klopse,19.50,Yes
+Cocolo Ramen,Japanese,12-18,8.4,Tonkotsu Ramen,14.00,Yes
+Kuchi,Uzbek,10-15,8.1,Plov Rice Dish,12.50,Yes
+Cookies Cream,Vegetarian,20-30,8.6,Beetroot Tartare,24.00,Yes
+KaDeWe Food Hall,International,15-50,8.7,Oysters & Champagne,Market Price,Yes
+Bar Raval,Spanish,15-25,8.3,Iberico Ham Plate,18.00,Yes
+Neni Berlin,Israeli,18-28,8.4,Shakshuka,16.50,Yes
+Konnopke's Imbiss,Street Food,3-5,8.0,Bockwurst mit Brot,3.50,Yes
+Transit Restaurant,Asian Fusion,15-22,8.2,Vietnamese Pho,16.00,Yes
+Horvàth,Modern German,45-75,9.0,5-Course Menu,89.00,Yes
+Facil,Fine Dining,120-180,9.2,7-Course Menu,165.00,Yes

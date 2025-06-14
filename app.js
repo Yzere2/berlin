@@ -742,18 +742,19 @@ function renderMuseums() {
     if (!museumsGrid) return;
 
     museumsGrid.innerHTML = museumsData.map((museum, index) => `
-        <div class="museum-card" data-category="${museum.category}" data-id="museum_${index}" data-price="${museum.price}">
+        <div class="museum-card" data-category="${museum.Category}" data-id="museum_${index}" data-price="${museum['Price(€)']}">
             <div class="card">
                 <div class="card__body">
-                    <h3>${museum.name}</h3>
+                    <h3>${museum.Museum}</h3>
                     <div class="museum-meta">
-                        <span class="status status--${museum.price === 'Free Permanent' ? 'success' : 'info'}">${museum.price === 'Free Permanent' ? 'Free' : '€' + museum.price}</span>
-                        <span class="status status--${museum.booking_status === 'No Booking Required' ? 'success' : 'warning'}">${museum.booking_status}</span>
+                        <span class="status status--${museum['Price(€)'] === 'Free' ? 'success' : 'info'}">${museum['Price(€)'] === 'Free' ? 'Free' : '€' + museum['Price(€)']}</span>
+                        <span class="status status--${museum.Booking_Required === 'No' ? 'success' : 'warning'}">${museum.Booking_Required === 'No' ? 'No Booking Required' : 'Booking Required'}</span>
                     </div>
                     <div class="museum-details">
-                        <p><strong>Highlights:</strong> ${museum.highlights}</p>
-                        <p><strong>Details:</strong> ${museum.details}</p>
-                        <p><strong>Hours:</strong> ${museum.hours}</p>
+                        <p><strong>Category:</strong> ${museum.Category}</p>
+                        <p><strong>Time to Visit:</strong> ${museum['Time_Spent(hours)']} hours</p>
+                        <p><strong>Score:</strong> ${museum.Score}/10</p>
+                        <p><strong>Accessibility:</strong> ${museum.Accessibility}</p>
                     </div>
                 </div>
             </div>
@@ -766,18 +767,19 @@ function renderAttractions() {
     if (!attractionsGrid) return;
 
     attractionsGrid.innerHTML = attractionsData.map((attraction, index) => `
-        <div class="attraction-card" data-category="${attraction.category}" data-id="attraction_${index}" data-price="${attraction.price}">
+        <div class="attraction-card" data-category="${attraction.Category}" data-id="attraction_${index}" data-price="${attraction['Price(€)']}">
             <div class="card">
                 <div class="card__body">
-                    <h3>${attraction.name}</h3>
+                    <h3>${attraction.Attraction}</h3>
                     <div class="attraction-meta">
-                        <span class="status status--${attraction.price === '0' ? 'success' : 'info'}">${attraction.price === '0' ? 'Free' : '€' + attraction.price}</span>
-                        <span class="status status--${attraction.booking_status === 'No Booking Required' ? 'success' : 'warning'}">${attraction.booking_status}</span>
+                        <span class="status status--${attraction['Price(€)'] === 'Free' ? 'success' : 'info'}">${attraction['Price(€)'] === 'Free' ? 'Free' : '€' + attraction['Price(€)']}</span>
+                        <span class="status status--success">${attraction.Category}</span>
                     </div>
                     <div class="attraction-details">
-                        <p><strong>Highlights:</strong> ${attraction.highlights}</p>
-                        <p><strong>Details:</strong> ${attraction.details}</p>
-                        <p><strong>Hours:</strong> ${attraction.hours}</p>
+                        <p><strong>Time to Visit:</strong> ${attraction['Time_Spent(hours)']} hours</p>
+                        <p><strong>Score:</strong> ${attraction.Score}/10</p>
+                        ${attraction.Food_Recommendation !== 'N/A' ? `<p><strong>Food Nearby:</strong> ${attraction.Food_Recommendation} (€${attraction['Food_Price(€)']})</p>` : ''}
+                        <p><strong>Accessibility:</strong> ${attraction.Accessibility}</p>
                     </div>
                 </div>
             </div>
@@ -790,56 +792,270 @@ function renderRestaurants() {
     if (!restaurantsGrid) return;
 
     restaurantsGrid.innerHTML = restaurantsData.map((restaurant, index) => {
-        const priceRange = restaurant.price_range.replace('€', '');
+        const priceRange = restaurant['Price_Range(€)'];
         const [minPrice, maxPrice] = priceRange.split('-').map(p => parseFloat(p.trim()));
         const avgPrice = (minPrice + maxPrice) / 2;
         
         return `
-        <div class="restaurant-card" data-category="${restaurant.category}" data-id="restaurant_${index}" data-price="${avgPrice}">
+        <div class="restaurant-card" data-category="${restaurant.Cuisine}" data-id="restaurant_${index}" data-price="${avgPrice}">
             <div class="card">
                 <div class="card__body">
-                    <h3>${restaurant.name}</h3>
+                    <h3>${restaurant.Restaurant}</h3>
                     <div class="restaurant-meta">
                         <span class="status status--info">€${priceRange}</span>
-                        <span class="status status--success">${restaurant.cuisine}</span>
+                        <span class="status status--success">${restaurant.Cuisine}</span>
                     </div>
                     <div class="restaurant-details">
-                        <p><strong>Highlights:</strong> ${restaurant.highlights}</p>
-                        <p><strong>Details:</strong> ${restaurant.details}</p>
-                        <p><strong>Hours:</strong> ${restaurant.hours}</p>
+                        <p><strong>Score:</strong> ${restaurant.Score}/10</p>
+                        <p><strong>Recommended:</strong> ${restaurant.Recommended_Dish} (€${restaurant['Dish_Price(€)']})</p>
+                        <p><strong>Accessibility:</strong> ${restaurant.Accessibility}</p>
                     </div>
                 </div>
             </div>
-            </div>`;
-        }).join('');
+        </div>`;
+    }).join('');
 }
 
 function renderItinerary() {
     const itineraryContainer = document.querySelector('.itinerary');
-    if (!itineraryContainer) return;
+    if (!itineraryContainer) {
+        console.error('Itinerary container not found');
+        return;
+    }
 
-    const groupedItinerary = itineraryData.reduce((acc, item) => {
-        if (!acc[item.day]) {
-            acc[item.day] = [];
+    // Mapowanie aktywności do obrazów i dodatkowych informacji
+    const activityDetails = {
+        'Hotel Check-in Schöneberg': {
+            image: 'hotel.jpg',
+            description: 'Spokojna dzielnica z dobrym połączeniem komunikacyjnym',
+            tips: 'Sprawdź wcześniej godziny check-in'
+        },
+        'Potsdamer Platz': {
+            image: 'potsdamer-platz.jpg',
+            description: 'Nowoczesne centrum handlowe i rozrywkowe',
+            tips: 'Warto zobaczyć Sony Center i panoramę z tarasu'
+        },
+        'Holocaust Memorial': {
+            image: 'holocaust-memorial.jpg',
+            description: 'Poruszający pomnik upamiętniający ofiary Holokaustu',
+            tips: 'Zachowaj powagę i ciszę podczas zwiedzania'
+        },
+        'Brandenburg Gate': {
+            image: 'brandenburg-gate.jpg',
+            description: 'Symbol zjednoczenia Berlina i Niemiec',
+            tips: 'Najlepsze zdjęcia o wschodzie słońca'
+        },
+        'Reichstag Dome': {
+            image: 'reichstag-dome.jpg',
+            description: 'Szklana kopuła z panoramicznym widokiem na Berlin',
+            tips: 'Wymagana wcześniejsza rejestracja online'
+        },
+        'Dinner at Katz Orange': {
+            image: 'katz-orange.jpg',
+            description: 'Nowoczesna kuchnia niemiecka w historycznym browarze',
+            tips: 'Zarezerwuj stolik z wyprzedzeniem'
+        },
+        'Unter den Linden Walk': {
+            image: 'unter-den-linden.jpg',
+            description: 'Historyczna aleja z zabytkowymi budynkami',
+            tips: 'Wieczorny spacer jest szczególnie malowniczy'
+        },
+        'Breakfast Hackesche Höfe': {
+            image: 'hackesche-hoefe.jpg',
+            description: 'Zabytkowe podwórka z kawiarniami i restauracjami',
+            tips: 'Warto zwiedzić cały kompleks'
+        },
+        'Museum Island': {
+            image: 'museum-island.jpg',
+            description: 'UNESCO World Heritage Site z 5 światowej klasy muzeami',
+            tips: 'Kup bilet całodniowy, aby zobaczyć wszystkie muzea'
+        },
+        'Lunch Burgermeister': {
+            image: 'burgermeister.jpg',
+            description: 'Legendarny burger bar w byłej stacji metra',
+            tips: 'Przyjdź przed lub po godzinach szczytu'
+        },
+        'East Side Gallery': {
+            image: 'east-side-gallery.jpg',
+            description: 'Najdłuższy zachowany fragment Muru Berlińskiego',
+            tips: 'Sprawdź historię najsłynniejszych murali'
+        },
+        'Checkpoint Charlie': {
+            image: 'checkpoint-charlie.jpg',
+            description: 'Słynne przejście graniczne z czasów zimnej wojny',
+            tips: 'Warto odwiedzić muzeum obok'
+        },
+        'Topography of Terror': {
+            image: 'topography-terror.jpg',
+            description: 'Miejsce dawnej siedziby SS i Gestapo',
+            tips: 'Wstęp jest darmowy, ale wymaga czasu na zwiedzanie'
+        },
+        'Dinner Prater Garten': {
+            image: 'prater-garten.jpg',
+            description: 'Najstarszy ogród piwny w Berlinie',
+            tips: 'W sezonie letnim rezerwacja jest konieczna'
+        },
+        'TV Tower': {
+            image: 'tv-tower.jpg',
+            description: 'Najwyższy budynek w Niemczech z restauracją na górze',
+            tips: 'Kup bilet online, aby uniknąć kolejek'
+        },
+        'Return to Hotel': {
+            image: 'hotel.jpg',
+            description: 'Powrót do hotelu w dzielnicy Schöneberg',
+            tips: 'Sprawdź rozkład jazdy nocnych autobusów'
         }
-        acc[item.day].push(item);
+    };
+
+    // Grupowanie aktywności według dnia
+    const activitiesByDay = itineraryData.reduce((acc, activity) => {
+        if (!acc[activity.Day]) {
+            acc[activity.Day] = [];
+        }
+        acc[activity.Day].push(activity);
         return acc;
     }, {});
 
-    itineraryContainer.innerHTML = Object.entries(groupedItinerary).map(([day, items]) => `
-        <div class="itinerary__day">
-            <h3>${day} - ${items[0].time}</h3>
-            <div class="itinerary__items">
-                ${items.map(item => `
-                    <div class="itinerary__item">
-                        <h4>${item.name}</h4>
-                        <p>${item.description}</p>
-                        <span class="status status--${item.status === 'Free' ? 'success' : item.status === 'Booking Required' ? 'warning' : 'info'}">${item.status === 'Free' ? 'Free' : item.status === 'Booking Required' ? 'Booking Required' : '€' + item.price}</span>
-                    </div>
-                `).join('')}
+    itineraryContainer.innerHTML = Object.entries(activitiesByDay).map(([day, activities]) => `
+        <div class="itinerary-day">
+            <h3>Day ${day}</h3>
+            <div class="timeline">
+                ${activities.map(activity => {
+                    const details = activityDetails[activity.Activity] || {
+                        image: 'default.jpg',
+                        description: 'Brak opisu',
+                        tips: 'Brak wskazówek'
+                    };
+                    return `
+                    <div class="timeline-item">
+                        <div class="timeline-time">${activity.Time}</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <img src="images/${details.image}" 
+                                     alt="${activity.Activity}"
+                                     onerror="this.src='images/default.jpg'">
+                            </div>
+                            <h4>${activity.Activity}</h4>
+                            <div class="timeline-details">
+                                <p class="description">${details.description}</p>
+                                <p><strong>Location:</strong> ${activity.Location}</p>
+                                <p><strong>Duration:</strong> ${activity.Duration}</p>
+                                <p><strong>Type:</strong> ${activity.Type}</p>
+                                <p><strong>Cost:</strong> ${activity['Cost(€)'] === 'Free' ? 'Free' : 
+                                    activity['Cost(€)'] === 'Free*' ? 'Free* (Booking Required)' : 
+                                    '€' + activity['Cost(€)']}</p>
+                                <p class="tips"><strong>Tips:</strong> ${details.tips}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('')}
             </div>
         </div>
     `).join('');
+
+    // Dodaj style dla timeline
+    const style = document.createElement('style');
+    style.textContent = `
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .timeline-time {
+            min-width: 80px;
+            padding-right: 20px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+        .timeline-content {
+            flex: 1;
+            background: var(--color-surface);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .timeline-content:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .timeline-image {
+            width: 100%;
+            height: 250px;
+            margin: -20px -20px 20px -20px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .timeline-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+        }
+        .timeline-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .timeline-image:hover img {
+            transform: scale(1.05);
+        }
+        .timeline-content h4 {
+            margin: 0 0 15px 0;
+            color: var(--color-text);
+            font-size: var(--font-size-xl);
+        }
+        .timeline-details {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        .timeline-details p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        .timeline-details .description {
+            font-size: var(--font-size-base);
+            color: var(--color-text);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .timeline-details .tips {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-primary);
+        }
+        .timeline-details strong {
+            color: var(--color-text);
+            font-weight: var(--font-weight-medium);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column;
+            }
+            .timeline-time {
+                margin-bottom: 10px;
+                padding-right: 0;
+            }
+            .timeline-content {
+                width: 100%;
+            }
+            .timeline-image {
+                height: 200px;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Main initialization
